@@ -17,8 +17,19 @@
     .tab-content {
       padding-top: 15px;
     }
+
     .modal-body {
       padding: 0;
+    }
+
+    .alert {
+      position: absolute;
+      z-index: 1111;
+      top: 50px;
+      left: 500px;
+      overflow: auto;
+      max-height: 442px;
+      max-width: 1068px;
     }
   </style>
 
@@ -123,6 +134,23 @@
     <!-- /.modal-dialog -->
   </div>
   <!-- /.modal -->
+
+  <div id="infoAlert" class="alert alert-info">
+    <button type="button" class="close" onclick="dismiss(this)" style="padding-left:15px;">&times;</button>
+    <span>info text</span>
+  </div>
+  <div id="successAlert" class="alert alert-success">
+    <button type="button" class="close" onclick="dismiss(this)" style="padding-left:15px;">&times;</button>
+    <span>success text</span>
+  </div>
+  <div id="warningAlert" class="alert alert-warning">
+    <button type="button" class="close" onclick="dismiss(this)" style="padding-left:15px;">&times;</button>
+    <span>warning text</span>
+  </div>
+  <div id="errorAlert" class="alert alert-danger">
+    <button type="button" class="close" onclick="dismiss(this)" style="padding-left:15px;">&times;</button>
+    <span>error text</span>
+  </div>
 
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="./resources/vendor/jquery/jquery.min.js"></script>
