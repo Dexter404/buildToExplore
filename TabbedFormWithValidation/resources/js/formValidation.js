@@ -75,4 +75,6 @@ $(document).ready(function () {
                 $invalidFields.focus();
             }
         });
+
+    $("#accountFormModal").modal('show');
 });
