@@ -92,15 +92,6 @@ $(document).ready(function () {
     $("#accountFormModal").modal('show');
 });
 
-/*TODO
- * use data-dismiss in place of own dismiss function
- * aria-hidden for hiding alerts
- * alert() in place of show() to display alert
- * sources:
- * - http://getbootstrap.com/docs/3.3/javascript/#alerts
- * - http://getbootstrap.com/docs/3.3/components/#alerts
- */
-
 function showInfo(message) {
     var alert = $('.alert-info');
     alert.find('span').html(message);
