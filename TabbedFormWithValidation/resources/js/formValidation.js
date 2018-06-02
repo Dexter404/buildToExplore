@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    let errorMessagesList = [];
     $('#accountForm')
         .formValidation({
             framework: 'bootstrap',
@@ -44,6 +45,17 @@ $(document).ready(function () {
         .on('err.field.fv', function (e, data) {
             // data.fv --> The FormValidation instance
 
+            var $field = data.element,
+                $messages = $field.data('fv.messages').find('.help-block[data-fv-for="' + data.field + '"]');
+
+            // Get a random message
+            var message = $messages.filter('[data-fv-result="INVALID"]').eq(0).html();
+            //msgList += "<li>" + message + "</li>";
+            //showDialog("<ul>" + msgList + "</ul>");
+            console.log(message)
+            errorMessagesList.push(message);
+            showErrorList(errorMessagesList);
+
             // Get the first invalid field
             var $invalidFields = data.fv.getInvalidFields().eq(0);
 
@@ -76,5 +88,59 @@ $(document).ready(function () {
             }
         });
 
+<<<<<<< HEAD
     $("#accountFormModal").modal('show');
 });
+=======
+    $('.alert').hide();
+    $("#accountFormModal").modal('show');
+});
+
+function showInfo(message) {
+    var alert = $('.alert-info');
+    alert.find('span').html(message);
+    var alertWidth = alert.width();
+    var centerPos = window.innerWidth / 2 - alertWidth / 2;
+    alert.css('left', centerPos);
+    alert.show();
+}
+
+function showSuccess(message) {
+    var alert = $('.alert-success');
+    alert.find('span').html(message);
+    var alertWidth = alert.width();
+    var centerPos = window.innerWidth / 2 - alertWidth / 2;
+    alert.css('left', centerPos);
+    alert.show();
+}
+
+function showWarning(message) {
+    var alert = $('.alert-warning');
+    alert.find('span').html(message);
+    var alertWidth = alert.width();
+    var centerPos = window.innerWidth / 2 - alertWidth / 2;
+    alert.css('left', centerPos);
+    alert.show();
+}
+
+function showError(message) {
+    var alert = $('.alert-danger');
+    alert.find('span').html(message);
+    var alertWidth = alert.width();
+    var centerPos = window.innerWidth / 2 - alertWidth / 2;
+    alert.css('left', centerPos);
+    alert.show();
+}
+
+function showErrorList(arr) {
+    var list = "<ul>";
+    for(var msg of arr)
+        list += "<li>" + msg + "</li>";
+    list += "</ul>";
+    showError(list);
+}
+
+function dismiss(element) {
+    $(element).parent('.alert').hide();
+}
+>>>>>>> c7afecfc8792aa20c035aa829db74af9c714a00d
