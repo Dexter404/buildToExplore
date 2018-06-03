@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<HTML>
+<HEAD>
+	<TITLE>Flash to JavaScript</TITLE>
+
+    <!-- References 
+        http://www.moock.org/webdesign/flash/fscommand/
+    -->
+
+	<SCRIPT LANGUAGE="JavaScript"> 
+		function testmovie_DoFSCommand(command, args) { 
+			if (command == "call_alert") { 
+				alert("Here's the Flash message: " + args);
+			}
+		}
+	</SCRIPT>
+
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+	
+	<OBJECT
+		CLASSID="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+		WIDTH="100%"
+		HEIGHT="100%"
+		CODEBASE="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab"
+		ID=testmovie>
+		<PARAM NAME="MOVIE" VALUE="flash-to-javascript.swf">
+		<PARAM NAME="PLAY" VALUE="false">
+		<PARAM NAME="LOOP" VALUE="false">	
+		<PARAM NAME="QUALITY" VALUE="high">
+		<PARAM NAME="SCALE" VALUE="SHOWALL">
+
+
+		<EMBED
+			NAME="testmovie"
+			SRC="flash-to-javascript.swf"
+			WIDTH="100%"
+			HEIGHT="100%"
+			PLAY="false" 
+			LOOP="false"
+			QUALITY="high"
+			SCALE="SHOWALL" 
+			swLiveConnect="true"
+			PLUGINSPAGE="http://www.macromedia.com/go/flashplayer/">
+		</EMBED>
+	</OBJECT>
+
+</BODY>
+</HTML>
