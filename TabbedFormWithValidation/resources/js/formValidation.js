@@ -50,9 +50,6 @@ $(document).ready(function () {
 
             // Get a random message
             var message = $messages.filter('[data-fv-result="INVALID"]').eq(0).html();
-            //msgList += "<li>" + message + "</li>";
-            //showDialog("<ul>" + msgList + "</ul>");
-            console.log(message)
             errorMessagesList.push(message);
             showErrorList(errorMessagesList);
 
@@ -88,10 +85,6 @@ $(document).ready(function () {
             }
         });
 
-<<<<<<< HEAD
-    $("#accountFormModal").modal('show');
-});
-=======
     $('.alert').hide();
     $("#accountFormModal").modal('show');
 });
@@ -143,4 +136,3 @@ function showErrorList(arr) {
 function dismiss(element) {
     $(element).parent('.alert').hide();
 }
->>>>>>> c7afecfc8792aa20c035aa829db74af9c714a00d
