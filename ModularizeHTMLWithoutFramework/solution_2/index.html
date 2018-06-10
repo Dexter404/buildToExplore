@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+    crossorigin="anonymous">
+
+  <!-- import event handlers -->
+  <script>
+    function handleLoad(e) {
+      console.log('Loaded import: ' + e.target.href);
+    }
+
+    function handleError(e) {
+      console.log('Error loading import: ' + e.target.href);
+    }
+  </script>
+
+  <!-- import statement -->
+  <link rel="import" href="modal.inc.html" onload="handleLoad(event)" onerror="handleError(event)">
+
+  <title>Modularize HTML without Frameworks</title>
+  <!--
+    References
+    - https://www.html5rocks.com/en/tutorials/webcomponents/imports/
+    
+    Notes: 
+    - This solution works on importing html doc using link tag, similar to inclusion of stylesheets.
+    - imports become a #include for Web Components.
+  -->
+</head>
+
+<body>
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="margin: 50px;">
+    Launch demo modal
+  </button>
+
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+  <script>
+    window.jQuery || document.write('<script src="https://code.jquery.com/jquery-3.3.1.min.js"><\/script>')
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+    crossorigin="anonymous"></script>
+
+  <!-- append modal to current DOM -->
+  <!--script>
+    var link = document.querySelector('link[rel="import"]');
+    var content = link.import;
+    // Grab DOM from modal.inc.html's document,
+    // and add it to the required element to DOM.
+    var el = content.querySelector('#exampleModal');
+    document.body.appendChild(el.cloneNode(true));
+  </script-->
+
+  <script src="eventsDefinition.js"></script>
+</body>
+
+</html>
