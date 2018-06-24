@@ -1,78 +1,52 @@
-$(document).ready(function () {
-    let errorMessagesList = [];
-    $('#accountForm')
-        .formValidation({
-            framework: 'bootstrap',
-            // Only disabled elements are excluded
-            // The invisible elements belonging to inactive tabs must be validated
-            excluded: [':disabled'],
-            icon: {
-                valid: 'glyphicon glyphicon-ok',
-                invalid: 'glyphicon glyphicon-remove',
-                validating: 'glyphicon glyphicon-refresh'
-            },
-            fields: {
-                fullName: {
-                    validators: {
-                        notEmpty: {
-                            message: 'The full name is required'
-                        }
-                    }
-                },
-                company: {
-                    validators: {
-                        notEmpty: {
-                            message: 'The company name is required'
-                        }
-                    }
-                },
-                address: {
-                    validators: {
-                        notEmpty: {
-                            message: 'The address is required'
-                        }
-                    }
-                },
-                city: {
-                    validators: {
-                        notEmpty: {
-                            message: 'The city is required'
-                        }
-                    }
-                }
-            }
-        })
-        .on('err.field.fv', function (e, data) {
-            // data.fv --> The FormValidation instance
+/* for storing (field name, error message) */
+let errorMessages = {};
 
-            var $field = data.element,
-                $messages = $field.data('fv.messages').find('.help-block[data-fv-for="' + data.field + '"]');
+function initValidator() {
+    //customized constructor's input selector
+    $.fn.validator.Constructor.INPUT_SELECTOR = ':input:not([type="hidden"], [type="submit"], [type="reset"], button, .hide input)'
 
-            // Get a random message
-            var message = $messages.filter('[data-fv-result="INVALID"]').eq(0).html();
-            errorMessagesList.push(message);
-            showErrorList(errorMessagesList);
+    //activate validator
+    let options = {
+        html: true, //make html true in error message
+        disable: false, //make submit button disable until the form is valid to false
+    };
+    $("#accountForm").validator(options);
 
-            // Get the first invalid field
-            var $invalidFields = data.fv.getInvalidFields().eq(0);
+    //validate form on submit button click
+    $("#accountForm input[type='submit']").on("click", (e) => {
+        //prevent further default events
+        //this will also prevent trigerring of form submit event
+        e.preventDefault();
 
-            // Get the tab that contains the first invalid field
-            var $tabPane = $invalidFields.parents('.tab-pane'),
+        //validate form
+        $("#accountForm").validator('validate');
+
+        //if has any error
+        if (Object.keys(errorMessages).length > 0) {
+            showErrorList(Object.values(errorMessages));
+
+            //fetch all invalid fields
+            let $invalidFields = $(Object.keys(errorMessages)).map((i, value) => {
+                return $(`input[name='${value}']`).get(0);
+            });
+
+            //get the tab that contains the first invalid field
+            let $tabPane = $invalidFields.parents('.tab-pane'),
                 invalidTabId = $tabPane.attr('id');
 
-            // If the tab is not active
+            //if the tab is not active
             if (!$tabPane.hasClass('active')) {
-                // Then activate it
+                //then activate it
                 $tabPane.parents('.tab-content')
                     .find('.tab-pane')
                     .each(function (index, tab) {
-                        var tabId = $(tab).attr('id'),
+                        let tabId = $(tab).attr('id'),
                             $li = $('a[href="#' + tabId + '"][data-toggle="tab"]').parent();
 
                         if (tabId === invalidTabId) {
-                            // activate the tab pane
+                            //activate the tab pane
                             $(tab).addClass('active');
-                            // and the associated <li> element
+                            //and the associated <li> element
                             $li.addClass('active');
                         } else {
                             $(tab).removeClass('active');
@@ -80,59 +54,42 @@ $(document).ready(function () {
                         }
                     });
 
-                // Focus on the field
+                //focus on the field
                 $invalidFields.focus();
             }
-        });
+        } else {
+            //trigger submit event on validation success
+            $("#accountForm").trigger("submit");
+        }
+    });
 
-    $('.alert').hide();
-    $("#accountFormModal").modal('show');
-});
-
-function showInfo(message) {
-    var alert = $('.alert-info');
-    alert.find('span').html(message);
-    var alertWidth = alert.width();
-    var centerPos = window.innerWidth / 2 - alertWidth / 2;
-    alert.css('left', centerPos);
-    alert.show();
+    $("#accountForm").on("submit", (e) => {
+        e.preventDefault();
+        alert("Form submitted!");
+    }).on('validate.bs.validator', (e) => {
+        //console.log("Validation started for field:", e.relatedTarget.name);
+    }).on('invalid.bs.validator', (e) => {
+        //add invalid field find to error messages
+        errorMessages[e.relatedTarget.name] = getLabel(e.relatedTarget) + ": " + e.detail;
+        console.log("Invalid field:", e.relatedTarget, e.detail, getLabel(e.relatedTarget));
+    }).on('valid.bs.validator', (e) => {
+        //remove error message corresponding to current valid field
+        delete errorMessages[e.relatedTarget.name];
+        //console.log("Valid field:", e.relatedTarget, e.detail);
+    }).on('validated.bs.validator', (e) => {
+        //console.log("Validation done for field:", e.relatedTarget.name);
+    });
 }
 
-function showSuccess(message) {
-    var alert = $('.alert-success');
-    alert.find('span').html(message);
-    var alertWidth = alert.width();
-    var centerPos = window.innerWidth / 2 - alertWidth / 2;
-    alert.css('left', centerPos);
-    alert.show();
+function updateValidator() {
+    $("#accountForm").validator("update");
 }
 
-function showWarning(message) {
-    var alert = $('.alert-warning');
-    alert.find('span').html(message);
-    var alertWidth = alert.width();
-    var centerPos = window.innerWidth / 2 - alertWidth / 2;
-    alert.css('left', centerPos);
-    alert.show();
+function resetValidator() {
+    //clear error message map
+    errorMessages = {};
 }
 
-function showError(message) {
-    var alert = $('.alert-danger');
-    alert.find('span').html(message);
-    var alertWidth = alert.width();
-    var centerPos = window.innerWidth / 2 - alertWidth / 2;
-    alert.css('left', centerPos);
-    alert.show();
-}
-
-function showErrorList(arr) {
-    var list = "<ul>";
-    for(var msg of arr)
-        list += "<li>" + msg + "</li>";
-    list += "</ul>";
-    showError(list);
-}
-
-function dismiss(element) {
-    $(element).parent('.alert').hide();
+function getLabel(element) {
+    return $("label[for='" + $(element).attr('id') + "']").text();
 }
