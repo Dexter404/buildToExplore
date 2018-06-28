@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Bootstrap Alerts</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="alerts.css">
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="row">
+      <h2>Simple Bootstrap alerts for every day use</h2>
+      <h4>All messages close automatically after 6 seconds
+        <small>(Can be changed in js)</small>
+      </h4>
+      <button class="btn btn-info" onclick="info('Your info is saved properly.')">Info</button>
+      <button class="btn btn-warning" onclick="warning('Are you sure ?')">Warning</button>
+      <button class="btn btn-danger" onclick="error('Unknown error occurred.')">Error</button>
+      <button class="btn btn-success" onclick="success('All Saved.')">Success</button>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="popup.js"></script>
+  <script src="index.js"></script>
+</body>
+
+</html>
