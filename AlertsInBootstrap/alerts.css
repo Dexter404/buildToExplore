@@ -10,9 +10,9 @@
 }
 
 .top-alert .alert {
-    width: auto !important;
+    width: 60% !important;
     height: 100%;
-    display: inline;
+    display: inline-block;
     position: relative;
     margin: 0;
 }

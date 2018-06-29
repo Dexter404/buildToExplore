@@ -2,25 +2,43 @@
 <html lang="en">
 
 <head>
-  <title>Bootstrap Alerts</title>
+  <title>Bootstrap Alert Examples</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="alerts.css">
+
+  <!-- References
+    - https://getbootstrap.com/docs/3.3/javascript/#alerts
+    - https://bootsnipp.com/snippets/QxQoE
+  -->
 </head>
 
 <body>
 
   <div class="container">
     <div class="row">
-      <h2>Simple Bootstrap alerts for every day use</h2>
-      <h4>All messages close automatically after 6 seconds
-        <small>(Can be changed in js)</small>
+      <h2>Simple Bootstrap alerts and confirm popup.</h2>
+      <h4>
+        <b>Alert popups</b>
       </h4>
+      <h5>All messages close automatically after 6 seconds
+        <small>(Can be changed in js)</small>
+      </h5>
       <button class="btn btn-info" onclick="info('Your info is saved properly.')">Info</button>
       <button class="btn btn-warning" onclick="warning('Are you sure ?')">Warning</button>
       <button class="btn btn-danger" onclick="error('Unknown error occurred.')">Error</button>
       <button class="btn btn-success" onclick="success('All Saved.')">Success</button>
+      <hr>
+      <h4>
+        <b>Confirm popups</b>
+      </h4>
+      <h5>All messages close automatically after confirm input</h5>
+      <button class="btn btn-info" onclick="confirmInfo('Your info is saved properly.')">Info</button>
+      <button class="btn btn-warning" onclick="confirmWarning('Are you sure ?')">Warning</button>
+      <button class="btn btn-danger" onclick="confirmError('Unknown error occurred.')">Error</button>
+      <button class="btn btn-success" onclick="confirmSuccess('All Saved.')">Success</button>
+      <h5><small id="displayMessage"></small></h5>
     </div>
   </div>
 
