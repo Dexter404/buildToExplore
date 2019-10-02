@@ -5,7 +5,7 @@
   "main": "build/main.js",
   "author": "rahularora6532@gmail.com",
   "scripts": {
-    "clean": "rmdir build && mkdir build",
+    "clean": "rmdir /s /q build",
     "test": "node build/main.js",
     "compile": "tsc",
     "start": "npm run compile && npm run test"

@@ -17,7 +17,7 @@ npm install
 ## How to run?
 
 ```bash
-node start
+npm start
 ```
 
 ## Troubleshoot
@@ -25,7 +25,7 @@ node start
 - Sometimes if you delete any file from `src` then on compilation previous complied copy of deleted file does not get removed from compiled code source. So to remove that we can clean build directory using
 
 ```bash
-npm clean
+npm run clean
 ```
 
 - In some cases, while changing relationships, `sequelize.sync({ force: true })` fail to drop previous schema due to foreign key constraints in that case we need to handle/modify database manually.
